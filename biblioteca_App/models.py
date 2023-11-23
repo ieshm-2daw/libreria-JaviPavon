@@ -38,6 +38,7 @@ class Prestamo(models.Model):
     estado = models.CharField(max_length=20, choices=Estado, default='prestado')
 
 class Usuario(AbstractUser):
+    pass
     dni = models.CharField(max_length=20)
     direccion = models.CharField(max_length=200)
     telefono = models.CharField(max_length=10)
