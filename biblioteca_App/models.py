@@ -16,11 +16,7 @@ class Editorial(models.Model):
     sitio_web = models.URLField()
 
 class Libro(models.Model):
-    Disponibilidad = [
-        ('disponible', 'Disponible'),
-        ('prestado', 'Prestado'),
-        ('en_proceso', 'En proceso de préstamo'),
-    ]
+    Disponibilidad = [('disponible', 'Disponible'),('prestado', 'Prestado'),('en_proceso', 'En proceso de préstamo'),]
 
     titulo = models.CharField(max_length=200)
     autores = models.CharField(max_length=200)
@@ -33,10 +29,7 @@ class Libro(models.Model):
     portada = models.ImageField(upload_to='portadas/')
 
 class Prestamo(models.Model):
-    Estado = [
-        ('prestado', 'Prestado'),
-        ('devuelto', 'Devuelto'),
-    ]
+    Estado = [('prestado', 'Prestado'),('devuelto', 'Devuelto'),]
 
     libro = models.CharField(max_length=200)
     fecha_prestamo = models.DateField()
