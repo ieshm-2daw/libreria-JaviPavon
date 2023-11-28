@@ -28,6 +28,11 @@ class Libro(models.Model):
     disponibilidad = models.CharField(max_length=22, choices=Disponibilidad, default='disponible')
     portada = models.ImageField(upload_to='portadas/')
 
+
+    def __str__(self):
+
+        return self.titulo
+
 class Prestamo(models.Model):
     Estado = [('prestado', 'Prestado'),('devuelto', 'Devuelto'),]
 
