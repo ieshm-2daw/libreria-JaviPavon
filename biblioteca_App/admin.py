@@ -1,9 +1,7 @@
 # biblioteca_app/admin.py
 from django.contrib import admin
-from .models import Usuario, Autor, Editorial, Libro, Prestamo
+from .models import Usuario
+from django.contrib.auth.admin import UserAdmin
 
-admin.site.register(Usuario)
-admin.site.register(Autor)
-admin.site.register(Editorial)
-admin.site.register(Libro)
-admin.site.register(Prestamo)
+admin.site.register(Usuario,UserAdmin)
+

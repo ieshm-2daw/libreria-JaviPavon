@@ -1,3 +1,13 @@
-from django.shortcuts import render
+from .models import Libro
 
-# Create your views here.
+
+from django.views.generic import (
+    ListView,
+    DetailView,
+)
+class ListBooks(ListView):
+    model = Libro
+
+
+class DetailBook(DetailView):
+    model = Libro
