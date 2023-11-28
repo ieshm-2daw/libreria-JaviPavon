@@ -18,7 +18,7 @@ class DeleteBook(DeleteView):
     model = Libro
     success_url = reverse_lazy("list_books")
 
-class EditBooks(UpdateView):
+class EditBook(UpdateView):
     model = Libro
     fields = ['titulo', 'autores','editorial','fecha_publicacion', 'genero','isbn','resumen', 'disponibilidad','portada']
     template_name_suffix = "_update_form"
