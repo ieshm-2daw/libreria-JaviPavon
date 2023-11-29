@@ -17,20 +17,24 @@
             </div>
         </div>
     
-    <div class="row p-3">    
-    {% for book in object_list %}
+    <div class="row p-3">
+        <h2>Libros Disponibles</h2>
+    {% for book in libros_disponibles %}
     
             <div class="col-4">
                 <div class="card text-center">
                     <div class="card-body">
                         <h2 class="card-title">
-                            <a href="{% url 'detail_book' pk=book.pk %}">{{ book.titulo }} </a>
-                            
+                            <div class="row">
+                                <div class="col-12"><img width="100" src="{{ book.portada.url }}" alt=""></div>
+                                <div class="col-12"><a href="{% url 'detail_book' pk=book.pk %}">{{ book.titulo }} </a></div>
+                            </div>
                         </h2>
                         <p class="card-text">{{ book.resumen|linebreaksbr }} </p>
                     </div>
                     <div class="card-footer text-body-secondary">
                         <p> Escrito por: {{ book.autores }}</p>
+                        <p> Disponibilidad: {{ book.disponibilidad }}</p>
                     </div>
                 </div>
             </div>
@@ -39,6 +43,58 @@
     
     {% endfor %}
     </div>
+    <div class="row p-3">
+    <h2>Libros Prestados</h2>
+    {% for book in libros_prestados %}
+    
+            <div class="col-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h2 class="card-title">
+                            <div class="row">
+                                <div class="col-12"><img width="100" src="{{ book.portada.url }}" alt=""></div>
+                                <div class="col-12"><a href="{% url 'detail_book' pk=book.pk %}">{{ book.titulo }} </a></div>
+                            </div>
+                        </h2>
+                        <p class="card-text">{{ book.resumen|linebreaksbr }} </p>
+                    </div>
+                    <div class="card-footer text-body-secondary">
+                        <p> Escrito por: {{ book.autores }}</p>
+                        <p> Disponibilidad: {{ book.disponibilidad }}</p>
+                    </div>
+                </div>
+            </div>
+        
+    
+    
+    {% endfor %}
+    </div>
+    <div class="row p-3">
+        <h2>Libros En Proceso</h2>
+        {% for book in libros_en_proceso %}
+        
+                <div class="col-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h2 class="card-title">
+                                <div class="row">
+                                    <div class="col-12"><img width="100" src="{{ book.portada.url }}" alt=""></div>
+                                    <div class="col-12"><a href="{% url 'detail_book' pk=book.pk %}">{{ book.titulo }} </a></div>
+                                </div>
+                            </h2>
+                            <p class="card-text">{{ book.resumen|linebreaksbr }} </p>
+                        </div>
+                        <div class="card-footer text-body-secondary">
+                            <p> Escrito por: {{ book.autores }}</p>
+                            <p> Disponibilidad: {{ book.disponibilidad }}</p>
+                        </div>
+                    </div>
+                </div>
+            
+        
+        
+        {% endfor %}
+        </div>
     
 </div>
 </body>

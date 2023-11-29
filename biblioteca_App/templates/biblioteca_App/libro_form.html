@@ -9,10 +9,10 @@
     <title>Form</title>
 </head>
 <body class="text-center">
-    <form action="{% url 'create_book' %}" method="post">
+    <form action="{% url 'create_book' %}" enctype="multipart/form-data" method="post">
         {% csrf_token %}
         {{ form.as_p}}
-        <button class="btn btn-primary" type="submit">Crear Comentario</button>
+        <button class="btn btn-primary" type="submit">Crear Libro</button>
     </form>
 </body>
 </html>

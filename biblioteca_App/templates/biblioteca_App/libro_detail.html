@@ -21,7 +21,10 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <h2 class="card-title">
-                            {{ object.titulo }}  
+                            <div class="row">
+                                <div class="col-12"><img width="100" src="{{ object.portada.url }}" alt=""></div>
+                                <div class="col-12"><a href="">{{ object.titulo }} </a></div>
+                            </div>
                         </h2>
                         <p class="card-text">{{ object.resumen|linebreaksbr }} </p>
                     </div>
@@ -30,8 +33,6 @@
                         <p> Editorial: {{ object.editorial }}</p>
                         <p> Fecha Publicación: {{ object.fecha_publicacion }}</p>
                         <p> Genero: {{ object.genero }}</p>
-                        <p> ISBN: {{ object.isbn }}</p>
-                        <img src="../../../{{ object.portada }}" alt="">
                     </div>
                     <div class="row">
                         <div class="col"><a href="{% url 'edit_book' object.pk %}" class="btn btn-primary">Edit</a></div>

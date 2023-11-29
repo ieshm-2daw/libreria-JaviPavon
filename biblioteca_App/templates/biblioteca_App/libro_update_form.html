@@ -9,7 +9,7 @@
     <title>Form</title>
 </head>
 <body class="text-center">
-    <form action="{% url 'edit_book' object.pk %}" method="post">
+    <form action="{% url 'edit_book' object.pk %}" enctype="multipart/form-data" method="post">
         {% csrf_token %}
         {{ form.as_p}}
         <button class="btn btn-primary" type="submit">Editar Libro</button>
