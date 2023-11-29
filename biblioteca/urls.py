@@ -20,3 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include("biblioteca_App.urls"))
 ]
+
+urlpatterns += stativ(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
