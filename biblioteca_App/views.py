@@ -13,6 +13,20 @@ from django.views.generic import (
     CreateView,
 )
 
+class PrestamoBook(View):
+    nombre_template = 'book/confirm_prestamo.html'
+    
+
+    def get(self, request, pk):
+        book = Book.objects.get(id=pk)
+        return render(request, self.nombre_template, { 'book': book})
+
+    def post(self, request, pk):
+        book = book.objects.get(id=pk)
+        
+        return redirect('list_books')
+
+
 class ListBooks(ListView):
     model = Libro
     
