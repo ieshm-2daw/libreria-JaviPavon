@@ -1,6 +1,6 @@
 from typing import Any
 from django.db.models.query import QuerySet
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views import View
 from .models import Libro
 from django.urls import reverse_lazy
@@ -14,16 +14,17 @@ from django.views.generic import (
 )
 
 class PrestamoBook(View):
-    nombre_template = 'book/confirm_prestamo.html'
+    nombre_template = 'biblioteca_App/confirm_prestamo.html'
     
 
     def get(self, request, pk):
-        book = Book.objects.get(id=pk)
+        book = Libro.objects.get(id=pk)
         return render(request, self.nombre_template, { 'book': book})
 
     def post(self, request, pk):
-        book = book.objects.get(id=pk)
-        
+        book = Libro.objects.get(id=pk)
+        book.disponibilidad == 'prestado'
+        book.save()
         return redirect('list_books')
 
 
