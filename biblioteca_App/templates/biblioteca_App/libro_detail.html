@@ -37,7 +37,12 @@
                     <div class="row">
                         <div class="col"><a href="{% url 'edit_book' object.pk %}" class="btn btn-primary">Edit</a></div>
                         <div class="col"><a href="{% url 'delete_book' object.pk %}" class="btn btn-danger"><i class="bi bi-trash3"></i>Delete</a></div>
+                        {% if object.disponibilidad == 'disponible' %}
                         <div class="col"><a href="{% url 'pedido_book' object.pk %}" class="btn btn-primary">Realizar Pedido</a></div>
+                        {% endif %}
+                        {% if object.disponibilidad == 'prestado' %}
+                        <div class="col"><a href="{% url 'cancel_pedido' object.pk %}" class="btn btn-danger">Cancelar Pedido</a></div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

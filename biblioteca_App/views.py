@@ -1,8 +1,9 @@
+import datetime
 from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import redirect, render
 from django.views import View
-from .models import Libro
+from .models import Libro, Prestamo
 from django.urls import reverse_lazy
 
 from django.views.generic import (
@@ -12,6 +13,21 @@ from django.views.generic import (
     UpdateView,
     CreateView,
 )
+
+class CancelarPrestamo(View):
+    nombre_template = 'biblioteca_App/cancel_prestamo.html'
+    
+
+    def get(self, request, pk):
+        book = Libro.objects.get(id=pk)
+        return render(request, self.nombre_template, { 'book': book})
+
+    def post(self, request, pk):
+        book = Libro.objects.get(id=pk)
+        book.disponibilidad = 'disponible'
+        book.save()
+        
+        return redirect('list_books')
 
 class PrestamoBook(View):
     nombre_template = 'biblioteca_App/confirm_prestamo.html'
@@ -23,8 +39,14 @@ class PrestamoBook(View):
 
     def post(self, request, pk):
         book = Libro.objects.get(id=pk)
-        book.disponibilidad == 'prestado'
+        book.disponibilidad = 'prestado'
         book.save()
+        prestamo = Prestamo()
+        prestamo.libro = book.titulo
+        prestamo.fecha_prestamo = datetime.datetime.now()
+        prestamo.fecha_devolucion = datetime.datetime.now()
+        prestamo.usuario = request.user
+        prestamo.save()
         return redirect('list_books')
 
 
