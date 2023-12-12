@@ -16,22 +16,22 @@
             <div class="card text-center">
                 <div class="card-body">
                     <h2 class="card-title">
-                        {{ book.titulo }}
+                        {{ prestamo.libro.titulo }}
                         
                     </h2>
-                    <p class="card-text">{{ book.resumen|linebreaksbr }} </p>
+                    <p class="card-text">{{ prestamo.libro.resumen|linebreaksbr }} </p>
                 </div>
                 <div class="card-footer text-body-secondary">
-                    <p> Escrito por: {{ book.autores }}</p>
+                    <p> Escrito por: {{ prestamo.libro.autores.nombre }}</p>
                 </div>
             </div>
         </div>
     </div>
-        <form method="POST">
+        <form action="{% url 'cancel_pedido' prestamo.id %}" method="POST">
             {% csrf_token %}
             
-                <button type="submit" class="btn btn-danger">Cancelar Pedido</button>
-                <a class="btn btn-primary" href="{% url 'list_books' %}">Cancelar Operación</a>
+                <button type="submit" class="btn btn-danger">Devolver</button>
+                <a class="btn btn-primary" href="{% url 'list_my_books' %}">Cancelar Operación</a>
           </form>
 </body>
 </html>

@@ -11,6 +11,7 @@
 <body class="text-center">
     <form action="{% url 'create_book' %}" enctype="multipart/form-data" method="post">
         {% csrf_token %}
+        {{ forms.management_form }}
         {{ form.as_p}}
         <button class="btn btn-primary" type="submit">Crear Libro</button>
     </form>

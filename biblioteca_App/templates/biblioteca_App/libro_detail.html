@@ -40,9 +40,7 @@
                         {% if object.disponibilidad == 'disponible' %}
                         <div class="col"><a href="{% url 'pedido_book' object.pk %}" class="btn btn-primary">Realizar Pedido</a></div>
                         {% endif %}
-                        {% if object.disponibilidad == 'prestado' %}
-                        <div class="col"><a href="{% url 'cancel_pedido' object.pk %}" class="btn btn-danger">Cancelar Pedido</a></div>
-                        {% endif %}
+                        
                     </div>
                 </div>
             </div>
