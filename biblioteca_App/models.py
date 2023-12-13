@@ -2,7 +2,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-
+class Usuario(AbstractUser):
+    dni = models.CharField(max_length=20)
+    direccion = models.CharField(max_length=200)
+    telefono = models.CharField(max_length=10)
 
 class Autor(models.Model):
     nombre = models.CharField(max_length=100)
@@ -21,8 +24,11 @@ class Editorial(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+
 
 class Libro(models.Model):
+    
     Disponibilidad = [('disponible', 'Disponible'),('prestado', 'Prestado'),('en_proceso', 'En proceso de préstamo'),]
 
     titulo = models.CharField(max_length=200)
@@ -52,10 +58,7 @@ class Libro(models.Model):
 
 
 
-class Usuario(AbstractUser):
-    dni = models.CharField(max_length=20)
-    direccion = models.CharField(max_length=200)
-    telefono = models.CharField(max_length=10)
+
 
 class Prestamo(models.Model):
     Estado = [('prestado', 'Prestado'),('devuelto', 'Devuelto'),]
@@ -65,3 +68,8 @@ class Prestamo(models.Model):
     fecha_devolucion = models.DateField(null=True, blank=True)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     estado = models.CharField(max_length=20, choices=Estado, default='prestado')
+
+class Review(models.Model):
+    opinion = models.TextField()
+    libro = models.ForeignKey(Libro, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)

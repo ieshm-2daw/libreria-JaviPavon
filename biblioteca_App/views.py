@@ -3,7 +3,7 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import redirect, render
 from django.views import View
-from .models import Libro, Prestamo
+from .models import Libro, Prestamo, Review
 from django.urls import reverse_lazy
 
 from django.views.generic import (
@@ -104,3 +104,23 @@ class FormBooks(CreateView):
     model = Libro
     fields = ['titulo', 'autores','editorial','fecha_publicacion', 'genero','isbn','resumen', 'disponibilidad', 'portada']
     success_url = reverse_lazy("list_books")
+
+
+class ReviewBook(ListView):
+    model = Review
+    template_name = 'biblioteca_App/reviews.html'
+    
+
+    def get(self, request, pk):
+        libro = Libro.objects.get(pk=pk)
+        book = Review.libro
+        reviews = book.filter(libro=libro)
+        return render(request, self.nombre_template, { 'review': reviews})
+    
+    
+    def get_context_data(self, **kwargs):
+        libro = Libro.objects.get(pk=pk)
+        book = Review.libro
+        context = super().get_context_data(**kwargs)
+        context["reviews"] = Review.objects.filter(reviews = libro)
+        return context

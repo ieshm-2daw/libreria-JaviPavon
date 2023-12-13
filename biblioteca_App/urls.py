@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ListBooks, DetailBook, DeleteBook, EditBook, FormBooks, PrestamoBook, CancelarPrestamo, ListMyBooks
+from .views import ListBooks, DetailBook, DeleteBook, EditBook, FormBooks, PrestamoBook, CancelarPrestamo, ListMyBooks, ReviewBook
 
 urlpatterns = [
     path('', ListBooks.as_view(), name='list_books'),
@@ -10,4 +10,5 @@ urlpatterns = [
     path('pedido/<int:pk>', PrestamoBook.as_view(), name='pedido_book'),
     path('cancelar/pedido/<int:pk>', CancelarPrestamo.as_view(), name='cancel_pedido'),
     path('mybooks', ListMyBooks.as_view(), name='list_my_books'),
+    path('reviewbook/<int:pk>', ReviewBook.as_view(), name='review_book'),
 ]
