@@ -23,11 +23,28 @@
         </div>
     
     <div class="row p-3">
-        <div class="col-12"><img width="100" src="{{ book.portada.url }}" alt=""></div>
-        <div class="col-12">{{ book.titulo }}</div>
+        <div class="col-4 offset-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h2 class="card-title">
+                        <div class="row">
+                            <div class="col-12"><img width="100" src="{{ libro.portada.url }}" alt=""></div>
+                            <div class="col-12"><a href="{% url 'detail_book' libro.pk %}">{{ libro.titulo }}</a></div>
+                        </div>
+                    </h2>
+                    <p class="card-text">{{ libro.resumen|linebreaksbr }} </p>
+                </div>
+                <div class="card-footer text-body-secondary">
+                    <p> Escrito por: {{ libro.autores }}</p>
+                    <p> Fecha Devolución: {{ fecha_devolucion }}</p>
+                    <p> Disponibilidad: {{ libro.disponibilidad }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-3">
     {% for review in review %}
     
-            <div class="col-4">
+            <div class="col-4 p-3">
                 <div class="card text-center">
                     <div class="card-body">
                         <p class="card-text">{{ review.opinion|linebreaksbr }} </p>
@@ -41,6 +58,7 @@
     
     
     {% endfor %}
+        </div>
     </div>
     
     

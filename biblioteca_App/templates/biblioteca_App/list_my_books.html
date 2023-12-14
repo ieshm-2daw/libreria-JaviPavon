@@ -63,7 +63,9 @@
                             <p class="card-text">{{ prestado.libro.resumen|linebreaksbr }} </p>
                         </div>
                         <div class="card-footer text-body-secondary">
-                            <p> Escrito por: {{ prestado.libro.autores }}</p>
+                            {% for autor in prestado.libro.autores.all %}
+                                <p> Escrito por: {{ autor.nombre }}</p>
+                            {% endfor %}
                             <p> Fecha Devolución: {{ prestado.fecha_devolucion }}</p>
                             <p> Disponibilidad: {{ prestado.libro.disponibilidad }}</p>
                             {% if prestado.estado == 'prestado' %}

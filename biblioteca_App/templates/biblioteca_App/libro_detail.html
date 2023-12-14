@@ -29,7 +29,9 @@
                         <p class="card-text">{{ object.resumen|linebreaksbr }} </p>
                     </div>
                     <div class="card-footer text-body-secondary">
-                        <p> Escrito por: {{ object.autores }}</p>
+                    {% for autor in object.autores.all %}
+                        <p> Escrito por: {{ autor.nombre }}</p>
+                    {% endfor %}
                         <p> Editorial: {{ object.editorial }}</p>
                         <p> Fecha Publicación: {{ object.fecha_publicacion }}</p>
                         <p> Genero: {{ object.genero }}</p>

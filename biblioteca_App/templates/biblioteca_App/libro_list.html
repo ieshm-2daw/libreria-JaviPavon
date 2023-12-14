@@ -38,7 +38,9 @@
                         <p class="card-text">{{ book.resumen|linebreaksbr }} </p>
                     </div>
                     <div class="card-footer text-body-secondary">
-                        <p> Escrito por: {{ book.autores.nombre }}</p>
+                        {% for autor in book.autores.all %}
+                            <p> Escrito por: {{ autor.nombre }}</p>
+                        {% endfor %}
                         <p> Disponibilidad: {{ book.disponibilidad }}</p>
                     </div>
                 </div>

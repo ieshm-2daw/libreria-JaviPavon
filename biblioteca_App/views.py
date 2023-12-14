@@ -113,14 +113,15 @@ class ReviewBook(ListView):
 
     def get(self, request, pk):
         libro = Libro.objects.get(pk=pk)
-        book = Review.libro
-        reviews = book.filter(libro=libro)
-        return render(request, self.nombre_template, { 'review': reviews})
+        review = Review.objects.filter(libro=libro)
+        return render(request, self.template_name, { 'review': review, 'libro': libro})
     
     
-    def get_context_data(self, **kwargs):
-        libro = Libro.objects.get(pk=pk)
-        book = Review.libro
-        context = super().get_context_data(**kwargs)
-        context["reviews"] = Review.objects.filter(reviews = libro)
-        return context
+    # def get_context_data(self, pk, **kwargs):
+    #     libro = Libro.objects.get(pk=pk)
+    #     book = Review.libro
+    #     context = super().get_context_data(**kwargs)
+    #     context["reviews"] = Review.objects.filter(reviews = libro)
+    #     return context
+    
+    
