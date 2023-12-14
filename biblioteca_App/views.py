@@ -115,13 +115,31 @@ class ReviewBook(ListView):
         libro = Libro.objects.get(pk=pk)
         review = Review.objects.filter(libro=libro)
         return render(request, self.template_name, { 'review': review, 'libro': libro})
+
+class CreateReview(CreateView):
+    model = Review
+    template_name = 'biblioteca_App/create_review.html'
+    fields = ['libro','opinion','usuario']
+    success_url = reverse_lazy("list_books")
+
+# class CreateReview(View):
+#     def get(self, request, pk):
+#         libro = Libro.objects.get(pk=pk)
+#         form = ReviewForm()
+#         return render(request, 'biblioteca_App/create_review.html', {'form': form, 'libro':libro})
     
-    
-    # def get_context_data(self, pk, **kwargs):
-    #     libro = Libro.objects.get(pk=pk)
-    #     book = Review.libro
-    #     context = super().get_context_data(**kwargs)
-    #     context["reviews"] = Review.objects.filter(reviews = libro)
-    #     return context
-    
-    
+#     def post(self, request, pk):
+#         form = ReviewForm(request.POST)
+#         if form.is_valid():
+#             libro = Libro.objects.get(pk=pk)
+#             Review.libro = libro
+#             Review.usuario = self.request.user
+#             form.save()
+#             return redirect('review_book')
+#         return render(request, 'biblioteca_App/create_review.html', {'form': form, 'libro':libro})
+
+
+class DeleteReview(DeleteView):
+    model = Review
+    template_name = 'biblioteca_App/delete_review.html'
+    success_url = reverse_lazy("list_books")

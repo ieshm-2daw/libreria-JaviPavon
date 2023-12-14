@@ -22,7 +22,9 @@
                     <p class="card-text">{{ prestamo.libro.resumen|linebreaksbr }} </p>
                 </div>
                 <div class="card-footer text-body-secondary">
-                    <p> Escrito por: {{ prestamo.libro.autores.nombre }}</p>
+                    {% for autor in prestado.libro.autores.all %}
+                        <p> Escrito por: {{ autor.nombre }}</p>
+                    {% endfor %}
                 </div>
             </div>
         </div>

@@ -14,8 +14,8 @@
             <div class="col-12">
                 <div class="page-header">
                     <div class="row">
-                        <div class="col-8"><h1><a href="/">Welcome to Biblioteca Pavón</a></h1></div>
-                        <div class="col-2"><a href="{% url 'create_book' %}" class="top-menu"><i class="plus bi bi-plus-circle-fill"></i></a></div>
+                        <div class="col-8"><h1><a href="/">Reviews {{ libro.titulo }}</a></h1></div>
+                        <div class="col-2"><a href="{% url 'create_review' %}" class="top-menu"><i class="plus bi bi-plus-circle-fill"></i></a></div>
                         <div class="col-2"><a href="{% url 'list_my_books' %}" class="top-menu"><i class="plus bi bi-book"></i></a></div>
                     </div>    
                 </div>
@@ -35,12 +35,16 @@
                     <p class="card-text">{{ libro.resumen|linebreaksbr }} </p>
                 </div>
                 <div class="card-footer text-body-secondary">
-                    <p> Escrito por: {{ libro.autores }}</p>
+                    {% for autor in libro.autores.all %}
+                        <p> Escrito por: {{ autor.nombre }}</p>
+                    {% endfor %}
                     <p> Fecha Devolución: {{ fecha_devolucion }}</p>
                     <p> Disponibilidad: {{ libro.disponibilidad }}</p>
                 </div>
             </div>
         </div>
+        
+    </div>
         <div class="row pt-3">
     {% for review in review %}
     
@@ -51,6 +55,7 @@
                     </div>
                     <div class="card-footer text-body-secondary">
                         <p> Escrito por: {{ review.usuario }}</p>
+                        <div class="col"><a href="{% url 'delete_review' review.pk %}" class="btn btn-danger"><i class="bi bi-trash3"></i></a></div>
                     </div>
                 </div>
             </div>

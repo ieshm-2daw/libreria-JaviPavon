@@ -22,7 +22,9 @@
                     <p class="card-text">{{ object.resumen|linebreaksbr }} </p>
                 </div>
                 <div class="card-footer text-body-secondary">
-                    <p> Escrito por: {{ object.autores }}</p>
+                    {% for autor in object.autores.all %}
+                        <p> Escrito por: {{ autor.nombre }}</p>
+                    {% endfor %}
                 </div>
             </div>
         </div>

@@ -15,16 +15,10 @@
         <div class="col-4 offset-4">
             <div class="card text-center">
                 <div class="card-body">
-                    <h2 class="card-title">
-                        {{ book.titulo }}
-                        
-                    </h2>
-                    <p class="card-text">{{ book.resumen|linebreaksbr }} </p>
+                    <p class="card-text">{{ review.opinion|linebreaksbr }} </p>
                 </div>
                 <div class="card-footer text-body-secondary">
-                    {% for autor in book.autores.all %}
-                        <p> Escrito por: {{ autor.nombre }}</p>
-                    {% endfor %}
+                    <p> Escrito por: {{ review.usuario }}</p>
                 </div>
             </div>
         </div>
@@ -32,7 +26,10 @@
         <form method="POST">
             {% csrf_token %}
             
-                <button type="submit" class="btn btn-primary">Confirmar Pedido</button>
+
+            <h2>Are you sure that you want to delete the review?</h2>
+                <button type="submit" class="btn btn-danger">Yes, Sure</button>
+                <a class="btn btn-primary" href="{% url 'list_books' %}">Cancel</a>
           </form>
 </body>
 </html>
