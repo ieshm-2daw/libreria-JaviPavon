@@ -143,3 +143,24 @@ class DeleteReview(DeleteView):
     model = Review
     template_name = 'biblioteca_App/delete_review.html'
     success_url = reverse_lazy("list_books")
+
+
+class PanelView(View):
+    nombre_template = 'biblioteca_App/panel_bibliotecario.html'
+    
+
+    def get(self, request):
+        NPrestamos = len(Prestamo.objects.filter(estado='prestado'))
+        NDisponibles = len(Libro.objects.filter(disponibilidad='disponible'))
+
+        fecha_actual = datetime.datetime.now()
+        fecha_hace_15_dias = fecha_actual - datetime.timedelta(days=15)
+        librosnodevueltos = Prestamo.objects.filter(estado='prestado', fecha_prestamo__lte=fecha_hace_15_dias)
+
+        fecha_en_7_dias = fecha_actual + datetime.timedelta(days=7)
+        librosadevolver = Prestamo.objects.filter(estado='prestado', fecha_devolucion__lte=fecha_en_7_dias, fecha_devolucion__gte=datetime.datetime.now())
+
+        usuario = self.request.user
+
+        return render(request, self.nombre_template, { 'librosadevolver': librosadevolver,'librosnodevueltos': librosnodevueltos,'ndisponibles': NDisponibles,'nprestamos': NPrestamos, 'usuario':usuario})
+    
