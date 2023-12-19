@@ -2,6 +2,7 @@ import datetime
 from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import redirect, render
+from .forms import ReviewForm
 from django.views import View
 from .models import Libro, Prestamo, Review
 from django.urls import reverse_lazy
@@ -106,7 +107,7 @@ class FormBooks(CreateView):
     success_url = reverse_lazy("list_books")
 
 
-class ReviewBook(ListView):
+class ReviewBook(View):
     model = Review
     template_name = 'biblioteca_App/reviews.html'
     
@@ -115,12 +116,35 @@ class ReviewBook(ListView):
         libro = Libro.objects.get(pk=pk)
         review = Review.objects.filter(libro=libro)
         return render(request, self.template_name, { 'review': review, 'libro': libro})
+    
+        
 
 class CreateReview(CreateView):
     model = Review
     template_name = 'biblioteca_App/create_review.html'
-    fields = ['libro','opinion','usuario']
+    fields = ['opinion']
     success_url = reverse_lazy("list_books")
+
+    def get(self, request, pk):
+        form = ReviewForm()
+        usuario = self.request.user
+        libro = Libro.objects.get(pk=pk)
+        review = Review.objects.filter(libro=libro)
+        return render(request, self.template_name, {'review': review, 'libro': libro, 'form': form, 'usuario': usuario})
+
+    def post(self, request, pk):
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            libro = Libro.objects.get(pk=pk)
+            review = form.save(commit=False)  # Save the form data to a Review instance without committing to the database
+            review.libro = libro
+            review.usuario = self.request.user
+            review.save()
+            
+            return redirect('list_books')
+        return render(request, 'biblioteca_App/create_review.html', { 'libro': libro,'form': form})
+        
+        
 
 # class CreateReview(View):
 #     def get(self, request, pk):

@@ -24,7 +24,7 @@ urlpatterns = [
     path('cancelar/pedido/<int:pk>', CancelarPrestamo.as_view(), name='cancel_pedido'),
     path('mybooks', ListMyBooks.as_view(), name='list_my_books'),
     path('reviewbook/<int:pk>', ReviewBook.as_view(), name='review_book'),
-    path('createreview', CreateReview.as_view(), name='create_review'),
+    path('createreview/<int:pk>', CreateReview.as_view(), name='create_review'),
     path('deletereview/<int:pk>', DeleteReview.as_view(), name='delete_review'),
     path('panel', PanelView.as_view(), name='panel'),
 ]

@@ -15,7 +15,7 @@
                 <div class="page-header">
                     <div class="row">
                         <div class="col-8"><h1><a href="/">Reviews {{ libro.titulo }}</a></h1></div>
-                        <div class="col-2"><a href="{% url 'create_review' %}" class="top-menu"><i class="plus bi bi-plus-circle-fill"></i></a></div>
+                        <div class="col-2"><a href="{% url 'create_review' libro.pk %}" class="top-menu"><i class="plus bi bi-plus-circle-fill"></i></a></div>
                         <div class="col-2"><a href="{% url 'list_my_books' %}" class="top-menu"><i class="plus bi bi-book"></i></a></div>
                     </div>    
                 </div>
