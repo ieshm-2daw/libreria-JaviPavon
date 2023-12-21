@@ -6,6 +6,7 @@ h1 a, h2 a, h2 {
 .page-header {
     background-color: peru;
     margin-top: 0;
+    padding: 20px;
 }
 
 .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
