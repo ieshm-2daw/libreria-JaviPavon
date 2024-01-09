@@ -119,6 +119,16 @@ class ReviewBook(View):
     
         
 
+from django.shortcuts import render, redirect
+from django.views.generic.edit import CreateView
+from .forms import ReviewForm  # Asegúrate de importar tu formulario correctamente
+from .models import Libro, Review
+
+from django.shortcuts import render, redirect
+from django.views.generic.edit import CreateView
+from .forms import ReviewForm
+from .models import Libro, Review
+
 class CreateReview(CreateView):
     model = Review
     template_name = 'biblioteca_App/create_review.html'
@@ -126,25 +136,38 @@ class CreateReview(CreateView):
     success_url = reverse_lazy("list_books")
 
     def get(self, request, pk):
-        form = ReviewForm()
         usuario = self.request.user
         libro = Libro.objects.get(pk=pk)
-        review = Review.objects.filter(libro=libro)
+        review = Review.objects.filter(libro=libro, usuario=usuario).first()
+
+        if review:
+            form = ReviewForm(instance=review)
+        else:
+            form = ReviewForm()
+
         return render(request, self.template_name, {'review': review, 'libro': libro, 'form': form, 'usuario': usuario})
 
     def post(self, request, pk):
         form = ReviewForm(request.POST)
+        libro = Libro.objects.get(pk=pk)
+        usuario = self.request.user
+
+        existe_Review = Review.objects.filter(libro=libro, usuario=usuario).first()
+
+        if existe_Review:
+            form = ReviewForm(request.POST, instance=existe_Review)
+        else:
+            form = ReviewForm(request.POST)
+
         if form.is_valid():
-            libro = Libro.objects.get(pk=pk)
-            review = form.save(commit=False)  # Save the form data to a Review instance without committing to the database
+            review = form.save(commit=False)
             review.libro = libro
-            review.usuario = self.request.user
+            review.usuario = usuario
             review.save()
-            
+
             return redirect('list_books')
-        return render(request, 'biblioteca_App/create_review.html', { 'libro': libro,'form': form})
-        
-        
+
+        return render(request, 'biblioteca_App/create_review.html', {'libro': libro, 'form': form, 'usuario': usuario})
 
 # class CreateReview(View):
 #     def get(self, request, pk):
