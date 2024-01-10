@@ -1,6 +1,7 @@
 import datetime
 from typing import Any
-from django.db.models.query import QuerySet
+from django.db.models.query import QuerySet 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from .forms import ReviewForm
 from django.views import View
@@ -57,7 +58,7 @@ class PrestamoBook(View):
         return redirect('list_books')
 
 
-class ListBooks(ListView):
+class ListBooks(LoginRequiredMixin, ListView):
     model = Libro
     
 
@@ -117,19 +118,7 @@ class ReviewBook(View):
         review = Review.objects.filter(libro=libro)
         return render(request, self.template_name, { 'review': review, 'libro': libro})
     
-        
-
-from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView
-from .forms import ReviewForm  # Asegúrate de importar tu formulario correctamente
-from .models import Libro, Review
-
-from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView
-from .forms import ReviewForm
-from .models import Libro, Review
-
-class CreateReview(CreateView):
+class CreateReview(LoginRequiredMixin,CreateView):
     model = Review
     template_name = 'biblioteca_App/create_review.html'
     fields = ['opinion']
