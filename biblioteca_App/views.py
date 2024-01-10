@@ -118,7 +118,7 @@ class ReviewBook(View):
         review = Review.objects.filter(libro=libro)
         return render(request, self.template_name, { 'review': review, 'libro': libro})
     
-class CreateReview(LoginRequiredMixin,CreateView):
+class CreateReview(CreateView):
     model = Review
     template_name = 'biblioteca_App/create_review.html'
     fields = ['opinion']
